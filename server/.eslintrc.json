@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "node": true,
+    "es2023": true
+  },
+  "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "airbnb-base", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 14,
+    "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "no-console": "off"
+  }
+}
