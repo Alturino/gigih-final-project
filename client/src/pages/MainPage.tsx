@@ -12,7 +12,23 @@ const MainPage: React.FC = () => {
 
   const [videos, setVideos] = useState<Video[]>([]);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/videos", {
+          method: "GET",
+          headers: {
+            "content-type": "application/json;charset=UTF-8",
+          },
+        });
+        const data = await response.json();
+        setVideos(data);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    console.log(fetchVideos());
+  }, []);
 
   return (
     <Flex flexDirection="column" marginTop={2}>

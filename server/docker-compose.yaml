@@ -5,7 +5,7 @@ services:
       - ./data/app:/home/app/data
     ports:
       - 3000:3000
-    command: sh -c 'yarn start'
+    command: sh -c 'yarn dev'
     depends_on:
       - mongo
     links:

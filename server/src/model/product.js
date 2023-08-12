@@ -13,7 +13,7 @@ export const productMongooseSchema = new mongoose.Schema({
   },
   title: {
     required: true,
-    type: Number,
+    type: String,
   },
   price: {
     required: true,
