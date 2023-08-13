@@ -7,12 +7,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
-    children: [
-      {
-        path: "videos/:videoId",
-        element: <VideoDetailPage />,
-      },
-    ],
+  },
+  {
+    path: "/videos/:videoId",
+    element: <VideoDetailPage />,
   },
 ]);
 

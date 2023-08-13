@@ -15,6 +15,9 @@ const videoSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  viewCount: {
+    type: Number,
+  },
   comments: [
     {
       type: mongoose.Types.ObjectId,

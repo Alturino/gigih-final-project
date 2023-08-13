@@ -4,7 +4,6 @@ import VideoUI from "./VideoUI";
 
 type Props = {
   videos: Video[];
-  onVideoClick: (id: string) => void;
 };
 
 const VideoList: React.FC<Props> = (props) => {
@@ -12,11 +11,8 @@ const VideoList: React.FC<Props> = (props) => {
     <Wrap>
       {props.videos.map((video) => {
         return (
-          <WrapItem key={video.id}>
-            <VideoUI
-              data={video}
-              onVideoClick={props.onVideoClick}
-            />
+          <WrapItem key={video._id}>
+            <VideoUI key={video._id} data={video} />
           </WrapItem>
         );
       })}

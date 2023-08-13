@@ -1,13 +1,11 @@
 export type Video = {
-  id: string;
-  title: string;
-  seller: string;
+  _id: string;
   urlImage: string;
   thumbnail: string;
+  title: string;
+  comments: Comment[];
+  products: Product[];
   viewCount: number;
-  videoUrl: string;
-  comments: string[];
-  products: string[];
 };
 
 export type Chip = {

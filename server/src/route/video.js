@@ -8,9 +8,10 @@ import {
 } from '../model/video.js';
 
 const videoRouter = express.Router();
-const videoEnpoint = '/videos';
+const videoEndpoint = '/videos';
+const videoDetailEndpoint = `${videoEndpoint}/:videoId`;
 
-videoRouter.get(videoEnpoint, async (_req, res) => {
+videoRouter.get(videoEndpoint, async (_req, res) => {
   try {
     const videos = await VideoModel.find({}).populate(['comments', 'products']);
     if (videos.length <= 0) {
@@ -26,7 +27,24 @@ videoRouter.get(videoEnpoint, async (_req, res) => {
   }
 });
 
-videoRouter.post(videoEnpoint, videoCreationValidatorSchema, async (req, res) => {
+videoRouter.get(videoDetailEndpoint, async (req, res) => {
+  try {
+    const { videoId } = req.params;
+    const videos = await VideoModel.findOne({ _id: videoId }).populate(['comments', 'products']);
+    if (videos.length <= 0) {
+      console.log(`videos is empty`);
+      res.status(200).json(videos).end();
+      return;
+    }
+    console.log(videos.length);
+    res.status(200).json(videos).end();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(`Unknown error with error: ${e}`).end();
+  }
+});
+
+videoRouter.post(videoEndpoint, videoCreationValidatorSchema, async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.err(result.array());
@@ -45,7 +63,7 @@ videoRouter.post(videoEnpoint, videoCreationValidatorSchema, async (req, res) =>
   }
 });
 
-videoRouter.put(videoEnpoint, videoCreationValidatorSchema, async (req, res) => {
+videoRouter.put(videoEndpoint, videoCreationValidatorSchema, async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.err(result.array());
@@ -73,7 +91,7 @@ videoRouter.put(videoEnpoint, videoCreationValidatorSchema, async (req, res) => 
   }
 });
 
-videoRouter.delete(videoEnpoint, videoDeletionValidatorSchema, async (req, res) => {
+videoRouter.delete(videoEndpoint, videoDeletionValidatorSchema, async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.err(result.array());

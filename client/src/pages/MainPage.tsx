@@ -4,30 +4,28 @@ import { FilterChip } from "../components/FilterChip";
 import VideoList from "../components/VideoList";
 import { useEffect, useState } from "react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import VideoDetailPage from "./VideoDetailPage";
 
 const MainPage: React.FC = () => {
   const [selectedChip, setSelectedChip] = useState<string | null>(null);
   const [chips, setChips] = useState<Chip[]>([]);
 
+  const navigate = useNavigate();
   const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch("http://localhost:3000/videos", {
-          method: "GET",
-          headers: {
-            "content-type": "application/json;charset=UTF-8",
-          },
-        });
-        const data = await response.json();
-        setVideos(data);
+        const videosResponse = await fetch("http://localhost:3000/videos");
+        const videosResult = await videosResponse.json();
+        console.log(videosResult);
+        setVideos(videosResult);
       } catch (e) {
         console.error(e);
       }
     };
-    console.log(fetchVideos());
+    fetchVideos();
   }, []);
 
   return (
@@ -56,12 +54,7 @@ const MainPage: React.FC = () => {
           );
         })}
       </Wrap>
-      <VideoList
-        videos={videos}
-        onVideoClick={(id: string) => {
-          <Link to={`/videos/${id}`}></Link>;
-        }}
-      />
+      <VideoList videos={videos} />
     </Flex>
   );
 };
