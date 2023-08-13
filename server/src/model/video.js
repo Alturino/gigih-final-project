@@ -20,13 +20,13 @@ const videoSchema = new mongoose.Schema({
   },
   comments: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Comment',
     },
   ],
   products: [
     {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Product',
     },
   ],

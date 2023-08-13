@@ -1,4 +1,5 @@
 /* eslint-disable import/extensions */
+import mongoose from 'mongoose';
 import express from 'express';
 import { validationResult } from 'express-validator';
 import {
@@ -6,6 +7,7 @@ import {
   commentDeletionValidatorSchema,
   commentCreationValidatorSchema,
 } from '../model/comment.js';
+import { VideoModel } from '../model/video.js';
 
 const commentRouter = express.Router();
 const commentEndpoint = '/comments';
@@ -20,26 +22,38 @@ commentRouter.get(commentEndpoint, commentDeletionValidatorSchema, async (req, r
 commentRouter.post(commentEndpoint, commentCreationValidatorSchema, async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    console.err(result.array());
+    console.error(result.array());
     res.status(403).send(result.array()).end();
     return;
   }
 
   const { videoId, username, comment } = req.body;
   try {
-    const newComment = await CommentModel.create({ videoId, username, comment });
+    const newComment = await CommentModel.create({
+      videoId: new mongoose.Types.ObjectId(videoId.toString()),
+      username: username.toString(),
+      comment: comment.toString(),
+    });
+    await VideoModel.findOneAndUpdate(
+      { _id: videoId },
+      {
+        $push: {
+          comments: newComment._id,
+        },
+      },
+    );
     res.status(201).send(`Comment saved with data ${newComment}`).end();
     console.log(`Comment saved with data ${newComment}`);
   } catch (e) {
     res.status(500).send(`Comment failed to saved with error: ${e}`).end();
-    console.err(e);
+    console.error(e);
   }
 });
 
 commentRouter.put(commentEndpoint, commentCreationValidatorSchema, async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    console.err(result.array());
+    console.error(result.array());
     res.status(403).send(result.array()).end();
     return;
   }

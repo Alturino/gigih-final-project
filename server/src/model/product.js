@@ -4,7 +4,7 @@ import { checkSchema } from 'express-validator';
 export const productMongooseSchema = new mongoose.Schema({
   videoId: {
     required: true,
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: 'Video',
   },
   linkProduct: {

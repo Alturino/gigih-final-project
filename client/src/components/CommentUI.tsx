@@ -7,7 +7,7 @@ type Props = {
 
 const CommentUI: React.FC<Props> = (props) => {
   return (
-    <Flex flexDirection="column">
+    <Flex key={props.data.id} flexDirection="column">
       <Wrap>
         <WrapItem>{props.data.username}</WrapItem>
         <WrapItem>{props.data.content}</WrapItem>

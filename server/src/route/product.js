@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import { validationResult } from 'express-validator';
+import { VideoModel } from '../model/video.js';
 import {
   ProductModel,
   productCreationValidatorSchema,
@@ -45,6 +46,14 @@ productRouter.post(productEndpoint, productCreationValidatorSchema, async (req, 
   const { videoId, linkProduct, title, price } = req.body;
   try {
     const newProduct = await ProductModel.create({ videoId, linkProduct, title, price });
+    await VideoModel.findOneAndUpdate(
+      { _id: videoId },
+      {
+        $push: {
+          products: newProduct._id,
+        },
+      },
+    );
     res.status(201).send(`Product saved with data ${newProduct}`).end();
     console.log(`Product saved with data ${newProduct}`);
   } catch (error) {

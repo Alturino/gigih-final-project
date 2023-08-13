@@ -5,7 +5,7 @@ export const commentSchema = new mongoose.Schema(
   {
     videoId: {
       required: true,
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.ObjectId,
       ref: 'Video',
     },
     username: {

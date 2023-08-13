@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 import express from 'express';
-import mongoose, { ObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 import productRouter from './route/product.js';
 import videoRouter from './route/video.js';
 import commentRouter from './route/comment.js';
@@ -12,6 +12,7 @@ import { VideoModel } from './model/video.js';
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 app.use(productRouter);
 app.use(videoRouter);
 app.use(commentRouter);

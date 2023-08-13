@@ -12,8 +12,8 @@ const CommentList: FC<Props> = (props) => {
     <Wrap>
       {props.comments.map((comment) => {
         return (
-          <WrapItem padding={4}>
-            <CommentUI data={comment} />
+          <WrapItem key={comment.id} padding={4}>
+            <CommentUI key={comment.id} data={comment} />
           </WrapItem>
         );
       })}
