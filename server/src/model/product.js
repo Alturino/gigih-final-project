@@ -7,6 +7,10 @@ export const productMongooseSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Video',
   },
+  image: {
+    required: true,
+    type: String,
+  },
   linkProduct: {
     required: true,
     type: String,
@@ -35,6 +39,11 @@ export const productCreationValidatorSchema = checkSchema(
       optional: false,
       isURL: true,
       errorMessage: 'linkProduct must be valid URL',
+    },
+    image: {
+      optional: false,
+      isURL: true,
+      errorMessage: 'image must be valid URL',
     },
     title: {
       isString: true,

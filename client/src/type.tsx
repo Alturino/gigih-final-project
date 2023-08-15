@@ -1,11 +1,11 @@
 export type Video = {
   _id: string;
-  urlImage: string;
+  videoUrl: string;
   thumbnail: string;
   title: string;
+  viewCount: number;
   comments: Comment[];
   products: Product[];
-  viewCount: number;
 };
 
 export type Chip = {
@@ -14,13 +14,18 @@ export type Chip = {
 };
 
 export type Product = {
-  id: string;
+  _id: string;
+  videoId: string;
+  image: string;
+  linkProduct: string;
+  description: string;
   title: string;
-  thumbnail: string;
+  price: number;
 };
 
 export type Comment = {
-  id: string;
+  _id: string;
+  videoId: string;
   username: string;
-  content: string;
+  comment: string;
 };

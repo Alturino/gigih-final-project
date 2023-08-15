@@ -1,4 +1,4 @@
-import { Flex, Wrap, WrapItem } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { Comment } from "../type";
 
 type Props = {
@@ -7,11 +7,11 @@ type Props = {
 
 const CommentUI: React.FC<Props> = (props) => {
   return (
-    <Flex key={props.data.id} flexDirection="column">
-      <Wrap>
-        <WrapItem>{props.data.username}</WrapItem>
-        <WrapItem>{props.data.content}</WrapItem>
-      </Wrap>
+    <Flex key={props.data._id} flexDirection="column">
+      <Heading size="md" mb={2}>
+        {props.data.username}
+      </Heading>
+      <Text fontSize="sm">{props.data.comment}</Text>
     </Flex>
   );
 };

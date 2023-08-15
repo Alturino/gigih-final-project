@@ -1,4 +1,4 @@
-import { Center, Flex } from "@chakra-ui/react";
+import { AspectRatio, Center, Flex } from "@chakra-ui/react";
 import { Video } from "../type";
 import { useEffect, useState } from "react";
 import CommentList from "../components/CommentList";
@@ -21,23 +21,52 @@ const VideoDetailPage: React.FC = () => {
 
   useEffect(() => {
     fetchData();
-  }, [videoId]);
+  }, []);
 
   return (
-    <Flex minHeight="100vh">
-      <Flex width="25%" overflowY="scroll">
+    <Flex justifyContent="center" minHeight="100vh">
+      <Flex
+        position="fixed"
+        left={0}
+        height="100vh"
+        width="25%"
+        overflowY="scroll"
+        border="2px"
+        borderColor="gray.200"
+        padding={10}
+      >
         <ProductList products={video?.products ? video.products : []} />
       </Flex>
-      <Flex bgColor={"blue.200"} width="50%">
-        <Center width={"100%"}>
-          <iframe src={video?.urlImage} allowFullScreen />
+      <Flex width="50%" minHeight="100vh">
+        <Center width="100%" height="100%" padding={4}>
+          <AspectRatio width="100%" height="65%" ratio={1} padding={2}>
+            <iframe
+              width="100%"
+              height="65%"
+              src={video?.videoUrl}
+              allowFullScreen
+            />
+          </AspectRatio>
         </Center>
       </Flex>
-      <Flex width="25%" flexDirection="column">
-        <Flex height="75%" overflowY="scroll">
+      <Flex
+        position="fixed"
+        right={0}
+        height="100vh"
+        width="25%"
+        flexDirection="column"
+        border="2px"
+        borderColor="gray.200"
+      >
+        <Flex
+          height="75%"
+          overflowY="scroll"
+          borderBottom="2px"
+          borderColor="gray.200"
+        >
           <CommentList comments={video?.comments ? video.comments : []} />
         </Flex>
-        <Flex height="25%">
+        <Flex>
           {videoId && <CommentInput videoId={videoId} update={fetchData} />}
         </Flex>
       </Flex>

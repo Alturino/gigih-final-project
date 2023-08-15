@@ -1,9 +1,8 @@
-/* eslint-disable import/extensions */
 import mongoose from 'mongoose';
 import { checkSchema } from 'express-validator';
 
 const videoSchema = new mongoose.Schema({
-  urlImage: {
+  videoUrl: {
     required: true,
     type: String,
   },
@@ -16,6 +15,7 @@ const videoSchema = new mongoose.Schema({
     type: String,
   },
   viewCount: {
+    required: true,
     type: Number,
   },
   comments: [
@@ -36,7 +36,7 @@ export const VideoModel = mongoose.model('Video', videoSchema);
 
 export const videoCreationValidatorSchema = checkSchema(
   {
-    urlImage: {
+    videoUrl: {
       optional: false,
       notEmpty: true,
       isURL: true,
@@ -53,6 +53,11 @@ export const videoCreationValidatorSchema = checkSchema(
       isLength: {
         options: { min: 8 },
       },
+    },
+    viewCount: {
+      optional: false,
+      notEmpty: true,
+      isNumeric: true,
     },
     comments: {
       optional: true,

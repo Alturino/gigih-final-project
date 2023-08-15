@@ -1,6 +1,16 @@
 services:
-  app:
-    build: ./
+  client:
+    build: ./client/
+    ports:
+      - 5173:5173
+    command: sh -c 'yarn dev'
+    restart: on-failure
+    links:
+      - server
+    depends_on:
+      - server
+  server:
+    build: ./server/
     volumes:
       - ./data/app:/home/app/data
     ports:

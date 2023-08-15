@@ -40,7 +40,9 @@ const VideoUI: React.FC<Props> = (props) => {
           <Badge variant={"subtle"}>
             <Center>
               <ViewIcon />
-              {props.data.viewCount}
+              <Text marginLeft={1} marginTop={1}>
+                {props.data.viewCount}
+              </Text>
             </Center>
           </Badge>
         </WrapItem>
